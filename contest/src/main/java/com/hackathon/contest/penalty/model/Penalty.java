@@ -8,8 +8,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,7 +24,7 @@ import java.util.Objects;
 @ToString
 public class Penalty implements Serializable {
   @Id
-  @Column(name = "id", nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private Double interest;
@@ -44,7 +45,7 @@ public class Penalty implements Serializable {
     return getClass().hashCode();
   }
 
-  public enum Rate{
-    DAILY,MONTHLY
+  public enum Rate {
+    DAILY, MONTHLY
   }
 }
