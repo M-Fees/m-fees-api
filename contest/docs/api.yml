@@ -1,0 +1,656 @@
+openapi: 3.0.1
+info:
+  title: M-Fees API
+  description: The implementation of our API is [publicly disclosed](#).
+    Your are welcome to try and compromise it. Happy hacking!
+  version: 1.0.0
+servers:
+  - url: https://STD21034.com
+paths:
+  /managers:
+    get:
+      tags:
+        - Managers
+      summary: Get all managers
+      description: Get all managers with details
+      operationId: getAllManagers
+      responses:
+        200:
+          description: List of managers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manager'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Managers
+      summary: Create new managers
+      operationId: createManagers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateManager'
+      responses:
+        200:
+          description: Managers created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manager'
+        400:
+          description: Bad Request
+          content: { }
+    put:
+      tags:
+        - Managers
+      summary: Update existing managers
+      operationId: updateManagers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Manager'
+      responses:
+        200:
+          description: Managers updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manager'
+        400:
+          description: Bad Request
+          content: { }
+  /students:
+    get:
+      tags:
+        - Students
+      summary: Get all students
+      description: Get all students with details
+      operationId: findStudentById
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Get students by page
+          schema:
+            type: integer
+        - name: page_size
+          in: query
+          required: false
+          description: Limit number of students per page
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        400:
+          description: Bad Request
+          content: { }
+
+    post:
+      tags:
+        - Students
+      summary: Create new  students
+      description: create new student from a array
+      operationId: addStudent
+      requestBody:
+        description: Students to be created
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateStudent'
+        required: true
+      responses:
+        200:
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        400:
+          description: Bad Request
+          content: { }
+
+    put:
+      tags:
+        - Students
+      summary: Update existing student
+      description: Update student
+      operationId: putStudent
+      requestBody:
+        description: Students to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        200:
+          description: student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        400:
+          description: Bad Request
+          content: { }
+  /students/{id}:
+    get:
+      tags:
+        - Students
+      summary: Get student by identifier
+      operationId: getStudentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          explode: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: student updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        400:
+          description: Bad Request
+          content: { }
+  /grades:
+    get:
+      tags:
+        - Grades
+      summary: Get all grades
+      description: Get all grades with details
+      operationId: getAllGrades
+      responses:
+        200:
+          description: List of grades
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grade'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Grades
+      summary: Create new grades
+      operationId: createGrades
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateGrade'
+      responses:
+        200:
+          description: Grades created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Grade'
+        400:
+          description: Bad Request
+          content: { }
+    put:
+      tags:
+        - Grades
+      summary: Update existing grades
+      operationId: updateGardes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Grade'
+      responses:
+        200:
+          description: Grades updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Grade'
+        400:
+          description: Bad Request
+          content: { }
+  /groups:
+    get:
+      tags:
+        - Groups
+      summary: Get all groups
+      description: Get all groups with details
+      operationId: getAllGroups
+      responses:
+        200:
+          description: List of groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Groups
+      summary: Create new group
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateGroup'
+      responses:
+        200:
+          description: Group created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+        400:
+          description: Bad Request
+          content: { }
+    put:
+      tags:
+        - Groups
+      summary: Update existing group
+      operationId: updateGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        200:
+          description: Groups updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          description: Bad Request
+          content: { }
+  /students/{student_id}/fees:
+    get:
+      tags:
+        - Paying
+      summary: Get fees for a specific student
+      operationId: getFees
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of fees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Paying
+      summary: Create fees for specific student
+      operationId: createFees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateFee'
+      responses:
+        200:
+          description: Fees successfully created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fee'
+        400:
+          description: Bad Request
+          content: { }
+  /students/{student_id}/fees/{fee_id}/payments:
+    get:
+      tags:
+        - Paying
+      summary: Get payments for a specific student
+      operationId: getPayments
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fee_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: List of payments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Paying
+      summary: Create payements
+      operationId: createPayments
+      parameters:
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fee_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreatePayment'
+      responses:
+        200:
+          description: List of payments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        400:
+          description: Bad Request
+          content: { }
+  /delay_penalty:
+    get:
+      tags:
+        - Paying
+      summary: Get delay penalty
+      operationId: getDelayPenalty
+      responses:
+        200:
+          description: Delay penalty when payment_date is outdated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delay'
+        400:
+          description: Bad Request
+          content: { }
+    post:
+      tags:
+        - Paying
+      summary: Create delay penalty
+      operationId: createDelayPenalty
+      requestBody:
+        description: delay penalty to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delay'
+      responses:
+        200:
+          description: Delay penalty successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delay'
+        400:
+          description: Bad Request
+          content: { }
+    put:
+      tags:
+        - Paying
+      summary: Update delay penalty
+      operationId: updateDelayPenalty
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delay'
+      responses:
+        200:
+          description: Delay penalty successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delay'
+        400:
+          description: Bad Request
+          content: { }
+components:
+  schemas:
+    CreateGrade:
+      type: object
+      properties:
+        garde:
+          type: string
+          example: "L1"
+        fees:
+          type: integer
+          example: 1_740_000
+    Grade:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+      allOf:
+        - $ref: '#/components/schemas/CreateGrade'
+    CreateManager:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: "Jean"
+        lastName:
+          type: string
+          example: "Dupont"
+        role:
+          type: string
+          example: headmaster
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    Manager:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+          example: "Jean"
+        lastName:
+          type: string
+          example: "Dupont"
+        role:
+          type: string
+          example: "headmaster"
+        email:
+          type: string
+          format: email
+    CreateStudent:
+      type: object
+      properties:
+        ref:
+          type: string
+          example: "STD21034"
+        firstName:
+          type: string
+          example: "RAKOTO"
+        lastName:
+          type: string
+          example: "Jean"
+        sex:
+          type: string
+          example: "Male"
+        address:
+          type: string
+          example: "Analamahitsy-Cité"
+        grade_id:
+          type: string
+        group_id:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+      allOf:
+        - $ref: '#/components/schemas/CreateStudent'
+    PhoneNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          example: "O32 40 636 16"
+        country_code:
+          type: string
+          example: "+261"
+    CreateGroup:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "G1"
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/CreateGroup'
+    CreateFee:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - TUITION
+            - COMPUTER
+        total_amout:
+          type: integer
+          format: int64
+        creation_datetime:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - PAID
+            - UNPAID
+    Fee:
+      type: object
+      properties:
+        id:
+          type: string
+        student_id:
+          type: string
+        remaining_amount:
+          type: integer
+          format: int64
+      allOf:
+        - $ref: '#/components/schemas/CreateFee'
+    Delay:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        interest:
+          type: integer
+          format: int64
+        interest_timerate:
+          type: string
+          enum:
+            - DAILY
+            - MONTHLY
+    CreatePayment:
+      type: object
+      properties:
+        type:
+          type: string
+          example: 'CASH'
+        amount:
+          type: integer
+        creation_datetime:
+          type: string
+          format: date-time
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        fee_id:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/CreatePayment'
